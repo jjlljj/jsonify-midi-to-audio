@@ -1,4 +1,26 @@
-var synth = new Tone.PolySynth(8).toMaster();
+var synth = new Tone.PolySynth(8);
+var verb = new Nexus.Slider('#reverb');
+
+var freeverb = new Tone.Freeverb()
+freeverb.dampening.value = 1000;
+freeverb.wet.value = 0;
+
+verb.min = 0;
+verb.max = 0.5;
+verb.on('change', function(val) {
+  freeverb.wet.value = val;
+})
+
+synth.chain(freeverb,Tone.Master);
+
+
+var kick = new Tone.Oscillator(261.6, 'triangle');
+var sequence = new Nexus.Sequence([1, 1]);
+var beat = new Nexus.Interval(120, function(e) {
+  kick.start();
+  kick.frequency.value = Nexus.note(sequence.next(), -1);
+});
+
 
 $('.start').on('click', function() {
   console.log('start'); 

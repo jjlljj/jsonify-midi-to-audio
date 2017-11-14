@@ -20,3 +20,12 @@ button {
 .stop {
   background-color: red;
 }
+
+.kick {
+  background-color: blue;
+}
+
+#reverb {
+  margin: auto;
+  text-align: center;
+}
